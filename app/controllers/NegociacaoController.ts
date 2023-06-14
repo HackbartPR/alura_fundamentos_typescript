@@ -1,17 +1,33 @@
+import { Negociacao } from "../models/Negociacao.js";
+
 export class NegociacaoController {
-    private _inputData: HTMLElement;
-    private _inputQuant: HTMLElement;
-    private _inputValor: HTMLElement;
+    private _inputData: HTMLInputElement
+    private _inputQuant: HTMLInputElement;
+    private _inputValor: HTMLInputElement;
 
     constructor() {
-        this._inputData = document.getElementById('data');
-        this._inputQuant = document.getElementById('quantidade');
-        this._inputValor = document.getElementById('valor');
+        this._inputData = document.querySelector('#data');
+        this._inputQuant = document.querySelector('#quantidade');
+        this._inputValor = document.querySelector('#valor');
     }
 
     adicionar(): void {
-        console.log(this._inputData);
-        console.log(this._inputQuant);
-        console.log(this._inputValor);
+        const negociacao = new Negociacao(
+            new Date(this._inputData.value.replace('-', ',')),
+            parseInt(this._inputQuant.value),
+            parseFloat(this._inputValor.value)
+        );
+        
+        this.limparFormulario();
+
+        console.log(negociacao);
+    }
+
+    limparFormulario(): void {
+        this._inputData.value = '';
+        this._inputQuant.value = '';
+        this._inputValor.value= '';
+
+        this._inputData.focus();
     }
 }
